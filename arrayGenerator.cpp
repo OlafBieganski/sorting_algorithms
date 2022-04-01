@@ -53,12 +53,15 @@ void Array::makeSortArr(int size, float percOfSorted){
 
 void Array::makeInvArr(int size){
     // jezeli wczesniej jako arr alokowano tablice
-    if(arr != NULL) delete arr;
+    //if(arr != NULL) delete arr;
     // alokujemy tablice odp rozmiaru
     int* arr1 = new int[size];
-    srand((unsigned)time(0));
+    // generujemy precyzyjny seed dla rand()
+    struct timeval t1;
+    gettimeofday(&t1, NULL);
+    srand(t1.tv_usec * t1.tv_sec);
     int sum = 0;
-    for(int i = size; i > 0; i--){
+    for(int i = size-1; i >= 0; i--){
         // zapełniamy losowymi liczbami rosnąco zaczynajc od tylu tab
         sum += rand() % 100;
         arr1[i] = sum;
@@ -119,8 +122,8 @@ Array2D::Array2D(int quantity, int elemSize){
 
 void Array2D::fillArr2D(float percOfSorted, bool descOrder){
     if(descOrder == true){
-        for(int i = arr2Dsize; i > 0; i--){
-            arr2D[i].makeSortArr(arr2D[0].size(), percOfSorted);
+        for(int i = 0; i < arr2Dsize; i++){
+            arr2D[i].makeInvArr(arr2D[0].size());
         }
     }
     else{
@@ -144,7 +147,7 @@ double Array2D::sort(sortType name){
     case QUICK:
         for(int i = 0; i < arr2Dsize; i++)
             arr2D[i].quickSrt();
-            break;
+        break;
     case INTROSPECTIVE:
         for(int i = 0; i < arr2Dsize; i++)
             arr2D[i].introSrt();
