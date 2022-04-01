@@ -2,6 +2,7 @@
 #define ARRAYGENERATOR
 #include <iostream>
 #include <time.h>
+#include<sys/time.h>
 #include "sortingAlgorithms.hh"
 
 #define LOG(x) std::cout << x << std::endl
@@ -33,7 +34,7 @@ private:
 public:
     Array2D() {arr2D = NULL; arr2Dsize = 0;}
     Array2D(int quantity, int elemSize);
-    ~Array2D() {delete arr2D;}
+    //~Array2D() {delete arr2D;} seg fault
     int size() {return arr2Dsize;}
     double sort(sortType name);
     bool isSorted(bool descOrder);

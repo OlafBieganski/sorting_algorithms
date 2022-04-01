@@ -23,14 +23,18 @@ void Array::makeSortArr(int size, float percOfSorted){
     }
     else{
         // jezeli wczesniej jako arr alokowano tablice
-        if(arr != NULL) delete arr;
+        //if(arr != NULL) delete arr; powodowało błąd podwojne usuniecie danych?
 
         // alokujemy tablice odp rozmiaru
         int* arr1 = new int[size];
 
         // wyliczamy ilosc posortowanych elem
         int sorted = size * (percOfSorted/100);
-        srand((unsigned)time(0));
+        // generujemy precyzyjny seed dla rand()
+        struct timeval t1;
+        gettimeofday(&t1, NULL);
+        srand(t1.tv_usec * t1.tv_sec);
+
         int sum = 0;
         // pierwsza czesc posortowane
         for(int i = 0; i < sorted; i++){
@@ -90,11 +94,11 @@ bool Array::isSorted(bool order){
 }
 
 void Array::mergeSrt(){
-    mergeSort(arr, 0, arrSize);
+    mergeSort(arr, 0, arrSize-1);
 }
 
 void Array::quickSrt(){
-    quicksort(arr, 0, arrSize);
+    quicksort(arr, 0, arrSize-1);
 }
 
 void Array::introSrt(){
@@ -109,6 +113,8 @@ Array2D::Array2D(int quantity, int elemSize){
     for(int i = 0; i < quantity; i++){
         arrays[i] = Array(elemSize);
     }
+    arr2Dsize = quantity;
+    arr2D = arrays;
 }
 
 void Array2D::fillArr2D(float percOfSorted, bool descOrder){
