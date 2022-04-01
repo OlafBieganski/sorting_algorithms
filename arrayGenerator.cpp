@@ -71,3 +71,103 @@ void Array::display(){
     }
     else cout << "Tablica jest pusta" << endl;
 }
+
+// sprawdza poprawnosc posortowania tablicy
+// order==true rosnaco, order==false malejaco
+// zwraca true jesli poprawnie posortowana, false jesli zle
+bool Array::isSorted(bool order){
+    if(order == true){
+        for(int i = 0; i < arrSize-1; i++){
+            if(arr[i] > arr[i+1]) return false;
+        }
+    }
+    else{
+        for(int i = 0; i < arrSize-1; i++){
+            if(arr[i+1] > arr[i]) return false;
+        }
+    }
+    return true;
+}
+
+void Array::mergeSrt(){
+    mergeSort(arr, 0, arrSize);
+}
+
+void Array::quickSrt(){
+    quicksort(arr, 0, arrSize);
+}
+
+void Array::introSrt(){
+
+}
+
+// quantity = ilosc tablic, elemSize = elementow w jedej tablicy
+Array2D::Array2D(int quantity, int elemSize){
+    // tworzymy odpowiednia ilosc tablic
+    Array* arrays = new Array[quantity];
+    //
+    for(int i = 0; i < quantity; i++){
+        arrays[i] = Array(elemSize);
+    }
+}
+
+void Array2D::fillArr2D(float percOfSorted, bool descOrder){
+    if(descOrder == true){
+        for(int i = arr2Dsize; i > 0; i--){
+            arr2D[i].makeSortArr(arr2D[0].size(), percOfSorted);
+        }
+    }
+    else{
+        for(int i = 0; i < arr2Dsize; i++){
+            arr2D[i].makeSortArr(arr2D[0].size(), percOfSorted);
+        }
+    }
+}
+
+double Array2D::sort(sortType name){
+    // Start measuring time
+    struct timespec begin, end; 
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &begin);
+
+    switch (name)
+    {
+    case MERGE:
+        for(int i = 0; i < arr2Dsize; i++)
+            arr2D[i].mergeSrt();
+        break;
+    case QUICK:
+        for(int i = 0; i < arr2Dsize; i++)
+            arr2D[i].quickSrt();
+            break;
+    case INTROSPECTIVE:
+        for(int i = 0; i < arr2Dsize; i++)
+            arr2D[i].introSrt();
+        break;
+    default:
+        LOG("Error");
+        break;
+    }
+
+    // Stop measuring time and calculate the elapsed time
+    clock_gettime(CLOCK_PROCESS_CPUTIME_ID, &end);
+    long seconds = end.tv_sec - begin.tv_sec;
+    long nanoseconds = end.tv_nsec - begin.tv_nsec;
+    double elapsed = seconds + nanoseconds*1e-9;
+    return elapsed;
+}
+
+// zwraca true jesli posortowana, false jesli nie
+bool Array2D::isSorted(bool descOrder){
+    for(int i = 0; i < arr2Dsize; i++){
+        if(arr2D[i].isSorted(!descOrder) == false)
+            return false;
+    }
+    return true;
+}
+
+void Array2D::display(){
+    for(int i = 0; i < arr2Dsize; i++){
+        cout << "Tablica nr " << i << ":" << endl;
+        arr2D[i].display();
+    }
+}
