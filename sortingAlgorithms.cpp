@@ -3,9 +3,6 @@
 
 using namespace std;
 
-void mergeSort(int *arr, int low, int high);
-void merge(int *arr, int low, int mid, int high);
-
 // funkcja dzieli tablice na dwie części, następnie scala
 void mergeSort(int *arr, int low, int high){
     int mid;
@@ -91,4 +88,91 @@ void quicksort(int arr[], int start, int end){
         quicksort(arr, start, j);
         quicksort(arr, j+1, end);
     }
+}
+
+void heapSort(int *arr, int size){
+
+    for(int i = size/2-1; i >= 0; i--)
+        heapify(arr, i, size);
+
+    for(int i = size-1; i > 0; i--){
+        swap(arr, 0, i);
+        heapify(arr, 0, i);
+    }
+}
+
+void heapify(int *arr, int i, int size){
+    int top = i;
+    int left = 2*i+1;
+    int right = 2*i+2;
+
+    if(left < size && arr[left] > arr[top])
+        top = left;
+
+    if(right < size && arr[right] > arr[top])
+        top = right;
+
+    if(top != i){
+        swap(arr, i, top);
+        heapify(arr, top, size);
+    }
+}
+
+void InsertionSort(int* arr, int size) {
+
+    int tmp, j;
+
+    for(int i=1; i<size; i++)
+    {
+        //wstawienie elementu w odpowiednie miejsce
+        tmp = arr[i]; //ten element będzie wstawiony w odpowiednie miejsce
+        j = i-1;
+        
+        //przesuwanie elementów większych od pom
+        while(j>=0 && arr[j]>tmp) 
+        {
+            arr[j+1] = arr[j]; //przesuwanie elementów
+            --j;
+        }
+        arr[j+1] = tmp; //wstawienie pom w odpowiednie miejsce
+    } 
+}
+
+void introSort(int *arr, int start, int end, int maxdepth){
+    int p;
+
+    if(end+1 < 16){
+        InsertionSort(arr, end+1);
+    }
+    else if(maxdepth == 0){
+        heapSort(arr, end+1);
+    }
+    else{
+        p = partition(arr, start, end);
+        introSort(arr, start, p-1, maxdepth-1);
+        introSort(arr, p+1, end, maxdepth-1);
+    }
+
+}
+
+void sort(int *arr, int start, int end){
+    int maxdepth = 2*log(end+1);
+    introSort(arr, start, end, maxdepth);
+}
+
+void introsort2(int *arr, int size) {
+	int partitionSize = partition(arr, 0, size - 1);
+
+	if (partitionSize < 16)
+	{
+		InsertionSort(arr, size);
+	}
+	else if (partitionSize >(2 * log(size)))
+	{
+		heapSort(arr, size);
+	}
+	else
+	{
+		quicksort(arr, 0, size - 1);
+	}
 }

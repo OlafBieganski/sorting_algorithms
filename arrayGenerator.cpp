@@ -104,8 +104,12 @@ void Array::quickSrt(){
     quicksort(arr, 0, arrSize-1);
 }
 
-void Array::introSrt(){
+void Array::heapSrt(){
+    heapSort(arr, arrSize);
+}
 
+void Array::introSrt(){
+    sort(arr, 0, arrSize-1);
 }
 
 // quantity = ilosc tablic, elemSize = elementow w jedej tablicy
@@ -151,6 +155,10 @@ double Array2D::sort(sortType name){
     case INTROSPECTIVE:
         for(int i = 0; i < arr2Dsize; i++)
             arr2D[i].introSrt();
+        break;
+    case HEAP:
+        for(int i = 0; i < arr2Dsize; i++)
+            arr2D[i].heapSrt();
         break;
     default:
         LOG("Error");

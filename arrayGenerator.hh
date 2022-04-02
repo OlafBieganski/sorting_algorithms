@@ -23,9 +23,10 @@ public:
     void mergeSrt();
     void quickSrt();
     void introSrt();
+    void heapSrt();
 };
 
-enum sortType {MERGE, QUICK, INTROSPECTIVE};
+enum sortType {MERGE, QUICK, INTROSPECTIVE, HEAP};
 
 class Array2D {
 private:
