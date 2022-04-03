@@ -109,7 +109,7 @@ void Array::heapSrt(){
 }
 
 void Array::introSrt(){
-    sort(arr, 0, arrSize-1);
+    IntroSort(arr, arrSize);
 }
 
 // quantity = ilosc tablic, elemSize = elementow w jedej tablicy

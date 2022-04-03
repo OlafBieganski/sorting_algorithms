@@ -63,7 +63,7 @@ void swap(int *arr, int a, int b){
 
 int partition(int arr[], int start, int end){
     // ustawaimy pivot na pierwszy element 
-    int pivot = arr[start];
+    int pivot = arr[(start + end)/2];
     // indeksy na start i koniec
     int i = start, j = end;
 
@@ -138,7 +138,7 @@ void InsertionSort(int* arr, int size) {
     } 
 }
 
-void introSort(int *arr, int start, int end, int maxdepth){
+/*void introSort(int *arr, int start, int end, int maxdepth){
     int p;
 
     if(end+1 < 16){
@@ -153,9 +153,9 @@ void introSort(int *arr, int start, int end, int maxdepth){
         introSort(arr, p+1, end, maxdepth-1);
     }
 
-}
+}*/
 
-void sort(int *arr, int start, int end){
+/*void sort(int *arr, int start, int end){
     int maxdepth = 2*log(end+1);
     introSort(arr, start, end, maxdepth);
 }
@@ -174,5 +174,19 @@ void introsort2(int *arr, int size) {
 	else
 	{
 		quicksort(arr, 0, size - 1);
+	}
+}*/
+
+void IntroSort(int* data, int count) {
+	int partitionSize = partition(data, 0, count - 1);
+
+	if (partitionSize < 16){
+		InsertionSort(data, count);
+	}
+	else if (partitionSize >(2 * log(count))){
+		heapSort(data, count);
+	}
+	else{
+		quicksort(data, 0, count - 1);
 	}
 }

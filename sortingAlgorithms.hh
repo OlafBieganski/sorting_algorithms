@@ -14,5 +14,6 @@ void heapify(int *arr, int i, int size);
 void introsort(int *data, int size);
 void sort(int *arr, int start, int end);
 
+void IntroSort(int* data, int count);
 
 #endif
