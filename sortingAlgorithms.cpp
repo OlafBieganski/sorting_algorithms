@@ -138,44 +138,7 @@ void InsertionSort(int* arr, int size) {
     } 
 }
 
-/*void introSort(int *arr, int start, int end, int maxdepth){
-    int p;
 
-    if(end+1 < 16){
-        InsertionSort(arr, end+1);
-    }
-    else if(maxdepth == 0){
-        heapSort(arr, end+1);
-    }
-    else{
-        p = partition(arr, start, end);
-        introSort(arr, start, p-1, maxdepth-1);
-        introSort(arr, p+1, end, maxdepth-1);
-    }
-
-}*/
-
-/*void sort(int *arr, int start, int end){
-    int maxdepth = 2*log(end+1);
-    introSort(arr, start, end, maxdepth);
-}
-
-void introsort2(int *arr, int size) {
-	int partitionSize = partition(arr, 0, size - 1);
-
-	if (partitionSize < 16)
-	{
-		InsertionSort(arr, size);
-	}
-	else if (partitionSize >(2 * log(size)))
-	{
-		heapSort(arr, size);
-	}
-	else
-	{
-		quicksort(arr, 0, size - 1);
-	}
-}*/
 
 void IntroSort(int* data, int count) {
 	int partitionSize = partition(data, 0, count - 1);
